@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formato Recolección y Actualización de Datos Personales — Caminos del Portal</title>
+<style>
+  :root {
+    --primary: #4A2D7A;
+    --primary-light: #E8DCFF;
+    --primary-dark: #2D1B4F;
+    --border: #B59FE0;
+    --border-strong: #4A2D7A;
+    --bg-section: #F5F0FF;
+    --bg-page: #F7F4FB;
+    --text: #1F1A2E;
+    --text-light: #5B4F7A;
+    --input-bg: #FFFFFF;
+    --error: #C0392B;
+    --success: #27AE60;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-page);
+    color: var(--text);
+    margin: 0;
+    padding: 24px 12px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 4px 24px rgba(74, 45, 122, 0.12);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* ===== Header bar (logo + título + códigos) ===== */
+  .header {
+    display: grid;
+    grid-template-columns: 110px 1fr 220px;
+    border-bottom: 2px solid var(--border-strong);
+  }
+  .header-logo {
+    border-right: 1px solid var(--border);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+  }
+  .header-logo img { max-width: 100%; height: auto; }
+  .header-title {
+    padding: 10px 14px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    background: white;
+  }
+  .header-title .system-title {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: underline;
+    margin-bottom: 4px;
+  }
+  .header-title .doc-title {
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .header-title .nit { font-weight: 700; font-size: 13px; margin: 4px 0; }
+  .header-title .page-info { font-size: 11px; margin-top: 4px; }
+  .header-meta {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    font-size: 12px;
+  }
+  .header-meta > div {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .header-meta > div:last-child { border-bottom: none; }
+  .header-meta .meta-label {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: underline;
+    font-size: 11px;
+  }
+
+  /* ===== Section banners ===== */
+  .section-banner {
+    background: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    margin-top: 0;
+  }
+
+  /* ===== Form grid rows ===== */
+  .form-section { padding: 4px 0; }
+
+  .row {
+    display: grid;
+    border-bottom: 1px solid var(--border);
+    min-height: 32px;
+  }
+  .row.cols-2 { grid-template-columns: 280px 1fr; }
+  .row.cols-3 { grid-template-columns: 220px 1fr 1fr; }
+  .row.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .row.cols-5 { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; }
+  .row.cols-6 { grid-template-columns: repeat(6, 1fr); }
+  .row.identif {
+    grid-template-columns: 110px 1fr 110px 1fr 1fr 1fr;
+  }
+  .row.identif > * { padding: 6px 8px; }
+
+  .cell {
+    padding: 6px 10px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cell:last-child { border-right: none; }
+  .cell.label {
+    background: var(--bg-section);
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: 12.5px;
+  }
+  .cell.header-cell {
+    background: var(--primary-light);
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    font-size: 11.5px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* ===== Inputs ===== */
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], textarea, select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #D5C9EE;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 13px;
+    background: var(--input-bg);
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-light);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 36px;
+  }
+  .input-inline {
+    flex: 1;
+  }
+  /* checkbox/radio styling */
+  .check-group { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; }
+  .check-group input { transform: scale(1.1); accent-color: var(--primary); cursor: pointer; }
+  .check-group label { cursor: pointer; user-select: none; font-weight: 600; }
+
+  /* signature canvas */
+  .sig-wrap {
+    border: 1px dashed var(--border);
+    background: #FAF8FE;
+    border-radius: 4px;
+    padding: 4px;
+    position: relative;
+  }
+  .sig-wrap canvas {
+    display: block;
+    width: 100%;
+    height: 60px;
+    background: white;
+    border-radius: 2px;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .sig-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .sig-actions button {
+    font-size: 10px;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 3px;
+    cursor: pointer;
+    color: var(--primary);
+  }
+  .sig-actions button:hover { background: var(--primary-light); }
+
+  /* big legal block */
+  .legal-block {
+    padding: 14px 18px;
+    font-size: 11.5px;
+    text-align: justify;
+    line-height: 1.5;
+    background: #FBFAFD;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .legal-block p { margin: 0 0 8px 0; }
+
+  /* signature blocks */
+  .sig-row {
+    display: grid;
+    grid-template-columns: 1fr 220px 180px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sig-row > div { padding: 10px 12px; border-right: 1px solid var(--border); }
+  .sig-row > div:last-child { border-right: none; }
+  .sig-row label.field-label {
+    display: block;
+    font-weight: 700;
+    font-size: 11.5px;
+    color: var(--primary-dark);
+    margin-bottom: 4px;
+  }
+
+  /* submit area */
+  .submit-area {
+    padding: 24px;
+    text-align: center;
+    background: var(--bg-section);
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.15s;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,122,0.3); }
+  .btn-secondary {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+  }
+  .btn-secondary:hover { background: var(--primary-light); }
+  .btn-tertiary {
+    background: #6c757d;
+    color: white;
+  }
+  .btn-tertiary:hover { background: #5a6268; }
+
+  /* notes */
+  .help-note {
+    font-size: 11px;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 4px 14px 10px;
+    background: var(--bg-section);
+  }
+
+  /* required indicator */
+  .req { color: var(--error); font-weight: 700; }
+
+  /* vehicles/bikes table-like grid */
+  .grid-table {
+    display: grid;
+    border: 1px solid var(--border);
+    margin: 0 14px 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .grid-table .row { border-bottom: 1px solid var(--border); }
+  .grid-table .row:last-child { border-bottom: none; }
+  .grid-table .cell { padding: 4px 6px; }
+  .grid-table .cell input { font-size: 12px; padding: 4px 6px; }
+
+  .toast {
+    position: fixed;
+    bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: var(--primary-dark); color: white;
+    padding: 12px 24px; border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+  .toast.error { background: var(--error); }
+  .toast.success { background: var(--success); }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .container { box-shadow: none; max-width: 100%; }
+    .submit-area, .sig-actions { display: none !important; }
+    input, textarea { border: none !important; border-bottom: 1px solid #999 !important; border-radius: 0 !important; }
+    .section-banner { background: #ddd !important; color: black !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cell.label, .cell.header-cell { background: #f0f0f0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  @media (max-width: 720px) {
+    .header { grid-template-columns: 80px 1fr; }
+    .header-meta { grid-column: 1 / -1; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr; border-top: 1px solid var(--border); }
+    .header-meta > div { border-right: 1px solid var(--border); border-bottom: none; }
+    .row.cols-2, .row.cols-3, .row.cols-4, .row.cols-5, .row.cols-6, .row.identif { grid-template-columns: 1fr; }
+    .cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .sig-row { grid-template-columns: 1fr; }
+    .sig-row > div { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<form id="dpForm" autocomplete="off">
+<div class="container">
+
+  <!-- ===================== ENCABEZADO ===================== -->
+  <div class="header">
+    <div class="header-logo">
+      <img src="data:image/jpeg;base64,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" alt="Caminos del Portal">
+    </div>
+    <div class="header-title">
+      <div class="system-title">SISTEMA DE GESTIÓN DE SEGURIDAD DE DATOS PERSONALES</div>
+      <div class="doc-title">FORMATO RECOLECCIÓN Y ACTUALIZACIÓN DE DATOS PERSONALES</div>
+      <div class="doc-title">CONJUNTO RESIDENCIAL CAMINOS DEL PORTAL PROPIEDAD HORIZONTAL</div>
+      <div class="nit">NIT 901.729.720-3</div>
+      <div class="page-info">Página 1 de 2</div>
+    </div>
+    <div class="header-meta">
+      <div>
+        <span class="meta-label">Cód.:</span>
+        <span>SGSDP_FDP_001</span>
+      </div>
+      <div>
+        <span class="meta-label">Fecha elaboración:</span>
+        <span><strong>08/05/2026</strong> D/M/AÑO</span>
+      </div>
+      <div>
+        <span class="meta-label">Versión:</span>
+        <span>001</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== IDENTIFICACIÓN INMUEBLE ===================== -->
+  <div class="section-banner">Identificación del inmueble</div>
+  <div class="row identif">
+    <div class="cell label">COEF</div>
+    <div class="cell"><input type="text" name="coef" placeholder="—"></div>
+    <div class="cell label">Torre</div>
+    <div class="cell"><input type="text" name="torre" placeholder="—"></div>
+    <div class="cell label">Apartamento</div>
+    <div class="cell"><input type="text" name="apartamento" placeholder="—"></div>
+  </div>
+  <div class="row cols-3">
+    <div class="cell label">Local</div>
+    <div class="cell header-cell">Matrícula Inmob.</div>
+    <div class="cell header-cell">Parqueadero</div>
+  </div>
+  <div class="row cols-3">
+    <div class="cell"><input type="text" name="local"></div>
+    <div class="cell"><input type="text" name="matricula_inmob"></div>
+    <div class="cell"><input type="text" name="parqueadero"></div>
+  </div>
+
+  <!-- ===================== PROPIETARIOS ===================== -->
+  <div class="section-banner">Datos del/los Propietario(s)</div>
+
+  <div class="row cols-2">
+    <div class="cell label">Nombres de propietarios:</div>
+    <div class="cell"><textarea name="prop_nombres" rows="2" placeholder="Ingrese nombres completos. Si son varios, sepárelos con coma."></textarea></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Tipo y número documento de identidad:</div>
+    <div class="cell"><input type="text" name="prop_documento" placeholder="Ej.: CC 1.234.567.890"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Teléfono de contacto:</div>
+    <div class="cell"><input type="tel" name="prop_telefono"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Dirección (<em>si no es residente</em>):</div>
+    <div class="cell"><input type="text" name="prop_direccion"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">E-mail:</div>
+    <div class="cell"><input type="email" name="prop_email"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Nombre y teléfono de contacto en caso de emergencia:</div>
+    <div class="cell"><textarea name="prop_emergencia" rows="2"></textarea></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Firmas de todos los propietarios:</div>
+    <div class="cell">
+      <div class="sig-wrap" style="flex:1;">
+        <canvas data-sig="prop_firmas"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('prop_firmas')">Borrar</button>
+          <span style="font-size:10px;color:var(--text-light);align-self:center;">Firme con el mouse o el dedo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ARRENDATARIOS ===================== -->
+  <div class="section-banner">Datos del/los Arrendatario(s)</div>
+
+  <div class="row cols-2">
+    <div class="cell label">Nombres de arrendatarios:</div>
+    <div class="cell"><textarea name="arr_nombres" rows="2"></textarea></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Tipo y número documento de identidad:</div>
+    <div class="cell"><input type="text" name="arr_documento"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Teléfono de contacto:</div>
+    <div class="cell"><input type="tel" name="arr_telefono"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">E-mail:</div>
+    <div class="cell"><input type="email" name="arr_email"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Nombre y teléfono de contacto en caso de emergencia:</div>
+    <div class="cell"><textarea name="arr_emergencia" rows="2"></textarea></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Firmas de todos los arrendatarios:</div>
+    <div class="cell">
+      <div class="sig-wrap" style="flex:1;">
+        <canvas data-sig="arr_firmas"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('arr_firmas')">Borrar</button>
+          <span style="font-size:10px;color:var(--text-light);align-self:center;">Firme con el mouse o el dedo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== INMOBILIARIA ===================== -->
+  <div class="section-banner">Inmobiliaria</div>
+  <div class="row cols-2">
+    <div class="cell label">Inmobiliaria:</div>
+    <div class="cell">
+      <div class="check-group">
+        <input type="radio" id="inmo_no" name="inmobiliaria" value="NO">
+        <label for="inmo_no">NO</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="inmo_si" name="inmobiliaria" value="SI">
+        <label for="inmo_si">SÍ</label>
+      </div>
+      <span style="margin-left:12px;font-weight:600;">¿Cuál?</span>
+      <input type="text" name="inmo_cual" class="input-inline" style="margin-left:6px;">
+    </div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Nombre de contacto:</div>
+    <div class="cell"><input type="text" name="inmo_contacto"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">Teléfono de contacto:</div>
+    <div class="cell"><input type="tel" name="inmo_telefono"></div>
+  </div>
+  <div class="row cols-2">
+    <div class="cell label">E-mail:</div>
+    <div class="cell"><input type="email" name="inmo_email"></div>
+  </div>
+
+  <!-- ===================== RESIDENTES ===================== -->
+  <div class="section-banner">Residentes</div>
+  <div class="row" style="grid-template-columns: 2fr 130px 1.5fr;">
+    <div class="cell header-cell">Nombres y apellidos</div>
+    <div class="cell header-cell">Menor de edad</div>
+    <div class="cell header-cell">Firma</div>
+  </div>
+  
+  <div class="row" style="grid-template-columns: 2fr 130px 1.5fr;">
+    <div class="cell"><input type="text" name="res1_nombre" placeholder="Nombres y apellidos"></div>
+    <div class="cell">
+      <div class="check-group" style="margin-right:6px;">
+        <input type="radio" id="res1_si" name="res1_menor" value="SI">
+        <label for="res1_si">SÍ</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="res1_no" name="res1_menor" value="NO">
+        <label for="res1_no">NO</label>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="sig-wrap" style="flex:1;">
+        <canvas data-sig="res1_firma"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('res1_firma')">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="grid-template-columns: 2fr 130px 1.5fr;">
+    <div class="cell"><input type="text" name="res2_nombre" placeholder="Nombres y apellidos"></div>
+    <div class="cell">
+      <div class="check-group" style="margin-right:6px;">
+        <input type="radio" id="res2_si" name="res2_menor" value="SI">
+        <label for="res2_si">SÍ</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="res2_no" name="res2_menor" value="NO">
+        <label for="res2_no">NO</label>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="sig-wrap" style="flex:1;">
+        <canvas data-sig="res2_firma"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('res2_firma')">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="grid-template-columns: 2fr 130px 1.5fr;">
+    <div class="cell"><input type="text" name="res3_nombre" placeholder="Nombres y apellidos"></div>
+    <div class="cell">
+      <div class="check-group" style="margin-right:6px;">
+        <input type="radio" id="res3_si" name="res3_menor" value="SI">
+        <label for="res3_si">SÍ</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="res3_no" name="res3_menor" value="NO">
+        <label for="res3_no">NO</label>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="sig-wrap" style="flex:1;">
+        <canvas data-sig="res3_firma"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('res3_firma')">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="grid-template-columns: 2fr 130px 1.5fr;">
+    <div class="cell"><input type="text" name="res4_nombre" placeholder="Nombres y apellidos"></div>
+    <div class="cell">
+      <div class="check-group" style="margin-right:6px;">
+        <input type="radio" id="res4_si" name="res4_menor" value="SI">
+        <label for="res4_si">SÍ</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="res4_no" name="res4_menor" value="NO">
+        <label for="res4_no">NO</label>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="sig-wrap" style="flex:1;">
+        <canvas data-sig="res4_firma"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('res4_firma')">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="grid-template-columns: 2fr 130px 1.5fr;">
+    <div class="cell"><input type="text" name="res5_nombre" placeholder="Nombres y apellidos"></div>
+    <div class="cell">
+      <div class="check-group" style="margin-right:6px;">
+        <input type="radio" id="res5_si" name="res5_menor" value="SI">
+        <label for="res5_si">SÍ</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="res5_no" name="res5_menor" value="NO">
+        <label for="res5_no">NO</label>
+      </div>
+    </div>
+    <div class="cell">
+      <div class="sig-wrap" style="flex:1;">
+        <canvas data-sig="res5_firma"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('res5_firma')">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MOVILIDAD ===================== -->
+  <div class="section-banner">Personas de difícil movilidad</div>
+  <div class="row" style="grid-template-columns: 1fr 220px 1fr;">
+    <div class="cell label">¿Hay personas de difícil movilidad?</div>
+    <div class="cell">
+      <div class="check-group">
+        <input type="radio" id="mov_no" name="movilidad" value="NO">
+        <label for="mov_no">NO</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="mov_si" name="movilidad" value="SI">
+        <label for="mov_si">SÍ</label>
+      </div>
+    </div>
+    <div class="cell">
+      <span style="font-weight:700;color:var(--primary-dark);">¿Cuántas?</span>
+      <input type="number" name="movilidad_cuantas" min="0" class="input-inline" style="margin-left:6px;">
+    </div>
+  </div>
+
+  <!-- ===================== VEHÍCULOS ===================== -->
+  <div class="section-banner">Vehículos (Moto o Vehículo)</div>
+  <div class="row cols-5" style="margin-top:4px;">
+    <div class="cell header-cell">Marca</div>
+    <div class="cell header-cell">Tipo (Moto/Vehículo)</div>
+    <div class="cell header-cell">Placa</div>
+    <div class="cell header-cell">Modelo</div>
+    <div class="cell header-cell">Color</div>
+  </div>
+  
+  <div class="row cols-5">
+    <div class="cell"><input type="text" name="veh1_marca"></div>
+    <div class="cell"><input type="text" name="veh1_tipo" placeholder="Moto / Vehículo"></div>
+    <div class="cell"><input type="text" name="veh1_placa"></div>
+    <div class="cell"><input type="text" name="veh1_modelo"></div>
+    <div class="cell"><input type="text" name="veh1_color"></div>
+  </div>
+  <div class="row cols-5">
+    <div class="cell"><input type="text" name="veh2_marca"></div>
+    <div class="cell"><input type="text" name="veh2_tipo" placeholder="Moto / Vehículo"></div>
+    <div class="cell"><input type="text" name="veh2_placa"></div>
+    <div class="cell"><input type="text" name="veh2_modelo"></div>
+    <div class="cell"><input type="text" name="veh2_color"></div>
+  </div>
+
+  <!-- ===================== BICICLETAS ===================== -->
+  <div class="section-banner">Bicicletas</div>
+  <div class="row cols-3" style="margin-top:4px;">
+    <div class="cell header-cell">Marca</div>
+    <div class="cell header-cell">Color</div>
+    <div class="cell header-cell">No. Serie de marco</div>
+  </div>
+  
+  <div class="row cols-3">
+    <div class="cell"><input type="text" name="bici1_marca"></div>
+    <div class="cell"><input type="text" name="bici1_color"></div>
+    <div class="cell"><input type="text" name="bici1_serie"></div>
+  </div>
+  <div class="row cols-3">
+    <div class="cell"><input type="text" name="bici2_marca"></div>
+    <div class="cell"><input type="text" name="bici2_color"></div>
+    <div class="cell"><input type="text" name="bici2_serie"></div>
+  </div>
+
+  <!-- ===================== MASCOTAS ===================== -->
+  <div class="section-banner">Mascotas</div>
+  <div class="row" style="grid-template-columns: 1fr 220px 1.5fr;">
+    <div class="cell label">¿Tiene mascotas?</div>
+    <div class="cell">
+      <div class="check-group">
+        <input type="radio" id="masc_si" name="mascotas" value="SI">
+        <label for="masc_si">SÍ</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="masc_no" name="mascotas" value="NO">
+        <label for="masc_no">NO</label>
+      </div>
+    </div>
+    <div class="cell">
+      <span style="font-weight:700;color:var(--primary-dark);">Especie - Raza:</span>
+      <input type="text" name="mascotas_especie" class="input-inline" style="margin-left:6px;">
+    </div>
+  </div>
+  <div class="row" style="grid-template-columns: 1fr 220px 1.5fr;">
+    <div class="cell label">¿Vacunas al día?</div>
+    <div class="cell">
+      <div class="check-group">
+        <input type="radio" id="vac_si" name="vacunas" value="SI">
+        <label for="vac_si">SÍ</label>
+      </div>
+      <div class="check-group">
+        <input type="radio" id="vac_no" name="vacunas" value="NO">
+        <label for="vac_no">NO</label>
+      </div>
+    </div>
+    <div class="cell"></div>
+  </div>
+
+  <!-- ===================== AVISO LEGAL / AUTORIZACIÓN ===================== -->
+  <div class="section-banner">Autorización de Tratamiento de Datos Personales</div>
+  <div class="legal-block">
+    <p>Declaro que se me ha informado: <strong>(I)</strong> que <strong>CONJUNTO RESIDENCIAL CAMINOS DEL PORTAL PROPIEDAD HORIZONTAL</strong> NIT 901.729.720-3, actúa como responsable de los datos obtenidos a través de sus distintos canales de atención; ha puesto a mi disposición el correo electrónico <strong>caminosdelportal.admon@gmail.com</strong> para la solicitud de la Política de Tratamiento de Datos Personales y el ejercicio de los derechos como Titular de los datos personales. En consecuencia, CONJUNTO RESIDENCIAL CAMINOS DEL PORTAL PROPIEDAD HORIZONTAL acreditar haber puesto a disposición de los Titulares de la Información, el presente aviso de privacidad y las Políticas de Tratamiento de la Información.</p>
+    <p><strong>(II)</strong> Con el diligenciamiento de este formato, autorizo a CONJUNTO RESIDENCIAL CAMINOS DEL PORTAL PROPIEDAD HORIZONTAL, a recolectar, almacenar, usar, suprimir y actualizar mis datos, de acuerdo con el procedimiento para el tratamiento de los datos personales, así mismo para las finalidades contempladas en la Política de Tratamiento de Datos Personales.</p>
+    <p><strong>(III)</strong> Mis derechos como titular de los datos son: a) Conocer, actualizar y rectificar sus datos personales frente a los Responsables del Tratamiento o Encargados del Tratamiento. Este derecho se podrá ejercer, entre otros frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a error, o aquellos cuyo Tratamiento esté expresamente prohibido o no haya sido autorizado; b) Solicitar prueba de la autorización otorgada al Responsable del Tratamiento salvo cuando expresamente se exceptúe como requisito para el Tratamiento, de conformidad con lo previsto en el artículo 10 de la presente ley; c) Ser informado por el Responsable del Tratamiento o el Encargado del Tratamiento, previa solicitud, respecto del uso que le ha dado a sus datos personales; d) Presentar ante la Superintendencia de Industria y Comercio quejas por infracciones a lo dispuesto en la presente ley y las demás normas que la modifiquen, adicionen o complementen; e) Revocar la autorización y/o solicitar la supresión del dato cuando en el Tratamiento no se respeten los principios, derechos y garantías constitucionales y legales. La revocatoria y/o supresión procederá cuando la Superintendencia de Industria y Comercio haya determinado que en el Tratamiento el Responsable o Encargado han incurrido en conductas contrarias a esta ley y a la Constitución; f) Acceder en forma gratuita a sus datos personales que hayan sido objeto de Tratamiento. Atenderé el diligenciamiento de un cambio en el presente formato a fin de atender reformas legislativas o políticas internas. g) Abstenerse de responder las preguntas sobre datos sensibles o sobre datos de las niñas, niños o adolescentes, tendrá carácter facultativo las respuestas que versen sobre estos datos.</p>
+    <p><strong>(IV)</strong> Conozco sobre los datos que sobre mí se obtengan, los cuales serán administrados por CONJUNTO RESIDENCIAL CAMINOS DEL PORTAL PROPIEDAD HORIZONTAL con un nivel adecuado de protección, asegurando la debida confidencialidad de dicha información y evitando la consulta por parte de terceros no autorizados, salvo que ésta sea requerida por una entidad pública o administrativa en ejercicio de sus funciones legales o por orden judicial, casos de urgencia médica o sanitaria o en aquellos casos regulados en el artículo 10 de la Ley 1581 de 2012.</p>
+    <p><strong>(V)</strong> La información del presente formato que he diligenciado, contiene datos personales verídicos que suministro de forma voluntaria y me comprometo a informar oportunamente cualquier cambio en los mismos.</p>
+    <p><strong>(VI)</strong> Autorizo su tratamiento para las finalidades contenidas en la Política de Tratamiento de Datos Personales de CONJUNTO RESIDENCIAL CAMINOS DEL PORTAL PROPIEDAD HORIZONTAL, que conozco previamente y por lo tanto plasmo como constancia mi firma.</p>
+  </div>
+
+  <!-- ===================== FIRMAS FINALES ===================== -->
+  <div class="section-banner">Firmas de constancia</div>
+
+  <!-- Firma 1 -->
+  <div class="sig-row">
+    <div>
+      <label class="field-label">Nombres y apellidos</label>
+      <input type="text" name="firma1_nombre">
+      <label class="field-label" style="margin-top:8px;">Documento</label>
+      <input type="text" name="firma1_doc">
+      <label class="field-label" style="margin-top:8px;">Firma</label>
+      <div class="sig-wrap">
+        <canvas data-sig="firma1"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('firma1')">Borrar</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label class="field-label">Calidad</label>
+      <div class="check-group">
+        <input type="radio" id="cal1_prop" name="firma1_calidad" value="Propietario">
+        <label for="cal1_prop">Propietario</label>
+      </div>
+      <div class="check-group" style="margin-top:4px;">
+        <input type="radio" id="cal1_arr" name="firma1_calidad" value="Arrendatario">
+        <label for="cal1_arr">Arrendatario</label>
+      </div>
+    </div>
+    <div>
+      <label class="field-label">Fecha</label>
+      <input type="date" name="firma1_fecha">
+    </div>
+  </div>
+
+  <!-- Firma 2 -->
+  <div class="sig-row">
+    <div>
+      <label class="field-label">Nombres y apellidos</label>
+      <input type="text" name="firma2_nombre">
+      <label class="field-label" style="margin-top:8px;">Documento</label>
+      <input type="text" name="firma2_doc">
+      <label class="field-label" style="margin-top:8px;">Firma</label>
+      <div class="sig-wrap">
+        <canvas data-sig="firma2"></canvas>
+        <div class="sig-actions">
+          <button type="button" onclick="clearSig('firma2')">Borrar</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label class="field-label">Calidad</label>
+      <div class="check-group">
+        <input type="radio" id="cal2_prop" name="firma2_calidad" value="Propietario">
+        <label for="cal2_prop">Propietario</label>
+      </div>
+      <div class="check-group" style="margin-top:4px;">
+        <input type="radio" id="cal2_arr" name="firma2_calidad" value="Arrendatario">
+        <label for="cal2_arr">Arrendatario</label>
+      </div>
+    </div>
+    <div>
+      <label class="field-label">Fecha</label>
+      <input type="date" name="firma2_fecha">
+    </div>
+  </div>
+
+  <!-- ===================== BOTONES ===================== -->
+  <div class="submit-area">
+    <button type="button" class="btn btn-primary" onclick="downloadJSON()">⬇ Guardar como archivo (JSON)</button>
+    <button type="button" class="btn btn-secondary" onclick="window.print()">🖨 Imprimir / PDF</button>
+    <button type="button" class="btn btn-tertiary" onclick="sendByEmail()">✉ Enviar por correo</button>
+    <button type="button" class="btn btn-secondary" onclick="resetForm()">↻ Limpiar formulario</button>
+  </div>
+  <div class="help-note" style="text-align:center;">
+    Las preguntas y la estructura del formulario no son editables. Solo los campos en blanco pueden ser diligenciados por el usuario.
+  </div>
+
+</div>
+</form>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* =====================  FIRMAS (canvas)  ===================== */
+const signatures = {};
+
+function setupCanvas(canvas) {
+  const ctx = canvas.getContext('2d');
+  // Set actual size for crisp drawing
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  ctx.lineWidth = 1.5;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#1F1A2E';
+
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    if (e.touches) {
+      return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    }
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    const p = getPos(e);
+    lastX = p.x; lastY = p.y;
+    // Draw an initial dot so single-clicks register
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 0.8, 0, Math.PI * 2);
+    ctx.fillStyle = '#1F1A2E';
+    ctx.fill();
+    signatures[canvas.dataset.sig] = canvas.toDataURL('image/png');
+  }
+  function move(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    lastX = p.x; lastY = p.y;
+    signatures[canvas.dataset.sig] = canvas.toDataURL('image/png');
+  }
+  function end() {
+    if (!drawing) return;
+    drawing = false;
+    signatures[canvas.dataset.sig] = canvas.toDataURL('image/png');
+  }
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  canvas.addEventListener('mouseup', end);
+  canvas.addEventListener('mouseleave', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', move, {passive:false});
+  canvas.addEventListener('touchend', end);
+
+  signatures[canvas.dataset.sig] = null;
+}
+
+function clearSig(key) {
+  const canvas = document.querySelector('canvas[data-sig="' + key + '"]');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  signatures[key] = null;
+}
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('canvas[data-sig]').forEach(setupCanvas);
+});
+
+/* =====================  RECOLECCIÓN DE DATOS  ===================== */
+function collectFormData() {
+  const data = {
+    documento: 'FORMATO RECOLECCIÓN Y ACTUALIZACIÓN DE DATOS PERSONALES',
+    codigo: 'SGSDP_FDP_001',
+    version: '001',
+    fechaElaboracion: '08/05/2026',
+    conjunto: 'CONJUNTO RESIDENCIAL CAMINOS DEL PORTAL PROPIEDAD HORIZONTAL',
+    nit: '901.729.720-3',
+    fechaDiligenciamiento: new Date().toISOString(),
+    campos: {},
+    firmas: {}
+  };
+  const form = document.getElementById('dpForm');
+  const fd = new FormData(form);
+  for (const [k, v] of fd.entries()) {
+    if (data.campos[k]) {
+      if (!Array.isArray(data.campos[k])) data.campos[k] = [data.campos[k]];
+      data.campos[k].push(v);
+    } else {
+      data.campos[k] = v;
+    }
+  }
+  // include all input fields even if empty
+  form.querySelectorAll('input[name], textarea[name], select[name]').forEach(el => {
+    if (el.type === 'radio') return;
+    if (!(el.name in data.campos)) data.campos[el.name] = el.value;
+  });
+  // signatures
+  for (const k in signatures) {
+    data.firmas[k] = signatures[k];
+  }
+  return data;
+}
+
+function toast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+function downloadJSON() {
+  const data = collectFormData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const nombre = (data.campos.prop_nombres || data.campos.arr_nombres || 'datos').split(/[\s,]+/)[0] || 'datos';
+  const torre = data.campos.torre || '';
+  const apto = data.campos.apartamento || '';
+  a.href = url;
+  a.download = `FORMATO_DATOS_${nombre}_T${torre}_A${apto}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Archivo descargado correctamente', 'success');
+}
+
+function sendByEmail() {
+  const data = collectFormData();
+  // Construir cuerpo de correo solo con texto (las firmas no caben en mailto)
+  const lines = ['FORMATO RECOLECCIÓN Y ACTUALIZACIÓN DE DATOS PERSONALES', ''];
+  lines.push('Conjunto: ' + data.conjunto);
+  lines.push('NIT: ' + data.nit);
+  lines.push('Fecha diligenciamiento: ' + new Date().toLocaleString());
+  lines.push('');
+  lines.push('--- DATOS DEL INMUEBLE ---');
+  lines.push('COEF: ' + (data.campos.coef||''));
+  lines.push('Torre: ' + (data.campos.torre||''));
+  lines.push('Apartamento: ' + (data.campos.apartamento||''));
+  lines.push('Local: ' + (data.campos.local||''));
+  lines.push('Matrícula Inmob.: ' + (data.campos.matricula_inmob||''));
+  lines.push('Parqueadero: ' + (data.campos.parqueadero||''));
+  lines.push('');
+  lines.push('--- PROPIETARIOS ---');
+  lines.push('Nombres: ' + (data.campos.prop_nombres||''));
+  lines.push('Documento: ' + (data.campos.prop_documento||''));
+  lines.push('Teléfono: ' + (data.campos.prop_telefono||''));
+  lines.push('Dirección: ' + (data.campos.prop_direccion||''));
+  lines.push('Email: ' + (data.campos.prop_email||''));
+  lines.push('Contacto emergencia: ' + (data.campos.prop_emergencia||''));
+  lines.push('');
+  lines.push('--- ARRENDATARIOS ---');
+  lines.push('Nombres: ' + (data.campos.arr_nombres||''));
+  lines.push('Documento: ' + (data.campos.arr_documento||''));
+  lines.push('Teléfono: ' + (data.campos.arr_telefono||''));
+  lines.push('Email: ' + (data.campos.arr_email||''));
+  lines.push('Contacto emergencia: ' + (data.campos.arr_emergencia||''));
+  lines.push('');
+  lines.push('--- INMOBILIARIA ---');
+  lines.push('Inmobiliaria: ' + (data.campos.inmobiliaria||''));
+  lines.push('Cuál: ' + (data.campos.inmo_cual||''));
+  lines.push('Contacto: ' + (data.campos.inmo_contacto||''));
+  lines.push('Teléfono: ' + (data.campos.inmo_telefono||''));
+  lines.push('Email: ' + (data.campos.inmo_email||''));
+  lines.push('');
+  lines.push('--- RESIDENTES ---');
+  for (let i = 1; i <= 5; i++) {
+    const n = data.campos['res'+i+'_nombre']||'';
+    const m = data.campos['res'+i+'_menor']||'';
+    if (n || m) lines.push(`${i}. ${n} | Menor: ${m}`);
+  }
+  lines.push('');
+  lines.push('Movilidad: ' + (data.campos.movilidad||'') + ' (Cuántas: ' + (data.campos.movilidad_cuantas||'0') + ')');
+  lines.push('');
+  lines.push('--- VEHÍCULOS ---');
+  for (let i = 1; i <= 2; i++) {
+    const marca = data.campos['veh'+i+'_marca']||'';
+    if (marca || data.campos['veh'+i+'_placa']) {
+      lines.push(`${i}. ${marca} | Tipo: ${data.campos['veh'+i+'_tipo']||''} | Placa: ${data.campos['veh'+i+'_placa']||''} | Modelo: ${data.campos['veh'+i+'_modelo']||''} | Color: ${data.campos['veh'+i+'_color']||''}`);
+    }
+  }
+  lines.push('');
+  lines.push('--- BICICLETAS ---');
+  for (let i = 1; i <= 2; i++) {
+    const marca = data.campos['bici'+i+'_marca']||'';
+    if (marca) lines.push(`${i}. ${marca} | Color: ${data.campos['bici'+i+'_color']||''} | Serie: ${data.campos['bici'+i+'_serie']||''}`);
+  }
+  lines.push('');
+  lines.push('--- MASCOTAS ---');
+  lines.push('Mascotas: ' + (data.campos.mascotas||''));
+  lines.push('Especie/Raza: ' + (data.campos.mascotas_especie||''));
+  lines.push('Vacunas: ' + (data.campos.vacunas||''));
+  lines.push('');
+  lines.push('--- FIRMAS DE CONSTANCIA ---');
+  lines.push(`1. ${data.campos.firma1_nombre||''} | Doc: ${data.campos.firma1_doc||''} | ${data.campos.firma1_calidad||''} | Fecha: ${data.campos.firma1_fecha||''}`);
+  lines.push(`2. ${data.campos.firma2_nombre||''} | Doc: ${data.campos.firma2_doc||''} | ${data.campos.firma2_calidad||''} | Fecha: ${data.campos.firma2_fecha||''}`);
+  lines.push('');
+  lines.push('Nota: las firmas digitales están incluidas en el archivo JSON adjunto si lo descarga.');
+
+  const body = encodeURIComponent(lines.join('\n'));
+  const subject = encodeURIComponent('Formato Recolección de Datos — Torre ' + (data.campos.torre||'') + ' Apto ' + (data.campos.apartamento||''));
+  window.location.href = `mailto:caminosdelportal.admon@gmail.com?subject=${subject}&body=${body}`;
+}
+
+function resetForm() {
+  if (!confirm('¿Está seguro de que desea borrar todos los datos diligenciados?')) return;
+  document.getElementById('dpForm').reset();
+  Object.keys(signatures).forEach(clearSig);
+  toast('Formulario limpiado');
+}
+</script>
+
+</body>
+</html>
